@@ -22,11 +22,11 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration("use_sim_time")
 
     # Get the package paths
-    pkg_my_manipulator_path = FindPackageShare('my_manipulator').find('my_manipulator')
+    pkg_manipulator_path = FindPackageShare('manipulator').find('manipulator')
     pkg_gazebo_ros_path = FindPackageShare('gazebo_ros').find('gazebo_ros')
 
     # Process the URDF file
-    urdf_file = os.path.join(pkg_my_manipulator_path, 'urdf', 'my_manipulator.urdf')
+    urdf_file = os.path.join(pkg_manipulator_path, 'urdf', 'manipulator.urdf')
     robot_description_content = Command(
         [
             PathJoinSubstitution([FindExecutable(name="xacro")]),
@@ -47,7 +47,7 @@ def generate_launch_description():
     spawn_entity = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
-        arguments=['-topic', 'robot_description', '-entity', 'my_manipulator'],
+        arguments=['-topic', 'robot_description', '-entity', 'manipulator'],
         output='screen'
     )
 
@@ -64,7 +64,7 @@ def generate_launch_description():
         package="controller_manager",
         executable="ros2_control_node",
         parameters=[robot_description,
-                    os.path.join(pkg_my_manipulator_path, "config", "my_controllers.yaml")],
+                    os.path.join(pkg_manipulator_path, "config", "my_controllers.yaml")],
         output="screen",
     )
 

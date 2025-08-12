@@ -9,9 +9,9 @@ def generate_launch_description():
     
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
 
-    urdf_file_name = 'my_manipulator.urdf'
+    urdf_file_name = 'manipulator.urdf'
     urdf = os.path.join(
-        get_package_share_directory('my_manipulator'),
+        get_package_share_directory('manipulator'),
         'urdf',
         urdf_file_name)
     with open(urdf, 'r') as infp:
@@ -38,5 +38,5 @@ def generate_launch_description():
             executable='rviz2',
             name='rviz2',
             output='screen',
-            arguments=['-d', os.path.join(get_package_share_directory('my_manipulator'), 'rviz', 'display.rviz')])
+            arguments=['-d', os.path.join(get_package_share_directory('manipulator'), 'rviz', 'display.rviz')])
     ])
